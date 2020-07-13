@@ -1,29 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import NavBar from './components/NavBar';
 import TodoList from './components/TodoList';
 import AddTodo from './components/AddTodo';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import useTodos from './State/Todos';
 
 function App() {
 
-  const [todos, setTodos] = useState([]);
-      
-  const addTodo = (todoTitle) => {
-    setTodos(todos.concat({_id: Date.now(), title: todoTitle, completed: false}))
-  };
-
-  const toggleTodo = (todoId) => {
-    setTodos(todos.map((todo) => {
-      if (todo._id === todoId)
-          todo.completed = !todo.completed;
-      return todo;
-    }));
-  };
-
-  const deleteTodo = (todoId) => {
-    setTodos(todos.filter((todo) => todo._id !== todoId))
-  };
+  const [todos, addTodo, toggleTodo, deleteTodo] = useTodos();
 
   return (
     <>
