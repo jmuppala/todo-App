@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -14,17 +14,17 @@ const useStyles = makeStyles({
 export default function  AddTodo ({ addTodo }) {
     const classes = useStyles();
 
-    const [todoItem, setTodoItem] = useState('');
+    const todoItem = useRef();
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      addTodo(todoItem);
-      setTodoItem('');
+      addTodo(todoItem.current.value);
+      todoItem.current.value = '';
     }
 
     return(
       <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-          <TextField label="Add To Do Item Here" value={todoItem} onChange={event => setTodoItem(event.target.value)} />
+          <TextField inputRef={todoItem} label="Add To Do Item Here" />
       </form>
     );
 
